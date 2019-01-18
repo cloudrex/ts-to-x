@@ -1,0 +1,20 @@
+{
+    "name": "ts-to-x",
+    "version": "1.0.0",
+    "description": "An experimental compiler",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "npm run build && node dist/index.js",
+        "build": "tsc"
+    },
+    "keywords": [],
+    "author": "Atlas <cloudrex@outlook.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^10.12.18",
+        "typescript": "^3.2.4"
+    },
+    "dependencies": {
+        "ts-simple-ast": "^21.0.0"
+    }
+}
