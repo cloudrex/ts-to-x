@@ -1,18 +1,24 @@
-import {Project, SourceFile} from "ts-simple-ast";
-import path from "path";
+import readline from "readline";
+import Scanner from "./scanner";
+import {IToken} from "./types";
 
-const project: Project = new Project({
-    addFilesFromTsConfig: false
+const i: readline.Interface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
 
-// Inspect source files
-const files: SourceFile[] = project.addExistingSourceFiles(path.join(__dirname, "../source/**/*.ts"));
+const scanner: Scanner = new Scanner();
 
-for (const file of files) {
-    for (const clss of file.getClasses()) {
+i.setPrompt("> ");
 
-        console.log(clss.getText());
-    }
-}
+i.on("line", (input: string) => {
+    scanner.feed(input);
 
-console.log("Done.");
+    console.log(scanner.scan().map((token: IToken) => {
+        return token.typeStr;
+    }).join(" ") || "<Empty>");
+
+    i.prompt();
+});
+
+i.prompt();
